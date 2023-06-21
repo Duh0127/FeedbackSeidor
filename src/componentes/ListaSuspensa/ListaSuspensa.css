@@ -1,0 +1,29 @@
+/* ListaSuspensa.css */
+.lista-suspensa-container {
+  background-color: #222;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.lista-suspensa-container select {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-size: 1.1rem;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.lista-suspensa-container option{
+  font-size: 1.2rem;
+}
+
+.lista-suspensa-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.5rem;
+}

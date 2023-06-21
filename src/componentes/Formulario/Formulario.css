@@ -1,0 +1,37 @@
+/* Formulario.css */
+.formulario{
+  display: flex;
+  flex-direction: column;
+  margin: 5rem 12rem;
+  border: 1px solid red;
+}
+
+form {
+  border: 1px solid yellow;
+  background-color: #222;
+  color: #fff;
+  padding: 3rem;
+  margin: 1rem;
+  border-radius: 5px;
+}
+
+form button {
+  background-color: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  outline: none;
+  width: 30%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+form button:hover {
+  background-color: #ffffff46;
+  transform: scale(1.02);
+  letter-spacing: 2px;
+  transition: all 0.3s ease-in-out;
+}
