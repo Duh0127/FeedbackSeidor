@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import Input from '../Input';
 import ListaSuspensa from '../ListaSuspensa';
 import ListaFeedback from '../ListaFeedback';
 import './Formulario.css';
+import TextArea from '../TextArea';
 
 const Formulario = () => {
-  /* variáveis useState, para controle dos valores nos campos */
+  /* VARIAVEIS USESTATE PARA CONTROLE DOS CAMPOS DO FORMULARIO */
   const [nome, setNome] = useState('');
   const [celular, setCelular] = useState('');
   const [email, setEmail] = useState('');
@@ -17,10 +18,11 @@ const Formulario = () => {
   const [feedback, setFeedback] = useState('');
   const [feedbacks, setFeedbacks] = useState([]);
   const [enviado, setEnviado] = useState(false);
-  /* variáveis de controle, com useState */
 
 
 
+
+/* HANDLES *//* HANDLES *//* HANDLES */
   const handleNomeChange = (value) => {
     setNome(value); //atribui o novo valor ao nome
   };
@@ -52,6 +54,7 @@ const Formulario = () => {
   const handleFeedbackChange = (value) => {
     setFeedback(value); // Atribui o novo valor ao feedback
   };
+
 
 
 
@@ -104,15 +107,15 @@ const Formulario = () => {
 
 
 
-  /* VARIAVEIS PARA LISTA SUSPENSA */
+
+  /* ARRAY PARA LISTA SUSPENSA */
   const estadosPorPais = {
     Brasil: ['São Paulo', 'Rio de Janeiro', 'Minas Gerais'],
     EstadosUnidos: ['Nova York', 'Califórnia', 'Texas'],
     Canadá: ['Ontário', 'Quebec', 'Colúmbia Britânica'],
   };
 
-
-  /* Array de tipos de departamentos */
+  /* ARRAY PARA DEPARTAMENTOS */
   const departamentos = [
     'ReactJS',
     'Angular',
@@ -124,8 +127,7 @@ const Formulario = () => {
     'CyberSecurity',
   ];
 
-
-  /* Array de funcionários por departamento */
+  /* ARRAY DE FUNCIONÁRIOS POR DEPARTAMENTO */
   const funcionariosPorDepartamento = {
     ReactJS: ['José', 'Rodrigo', 'Fabio'],
     Angular: ['Fernanda', 'Caio', 'Amanda'],
@@ -137,75 +139,107 @@ const Formulario = () => {
     CyberSecurity: ['Alberto', 'Eduardo', 'Kauê'],
   };
 
-  const estados = estadosPorPais[paisSelecionado] || [];
-  const funcionarios = funcionariosPorDepartamento[departamentoSelecionado] || [];
+  const estados = estadosPorPais[paisSelecionado] || []; // Obtém os estados do país selecionado
+  const funcionarios = funcionariosPorDepartamento[departamentoSelecionado] || []; // Obtém os funcionários do departamento selecionado
 
-  
+
+
+
+  /* FORMULARIO */
   return (
-    <div>
+    <Fragment>
       {enviado ? (
         <p>Obrigado pelo seu feedback!</p>
-      ) : (
+      )
+      : 
+      ( // Se o formulário não foi enviado, exibir o formulário
+
         <form onSubmit={handleFormSubmit}>
-          <Input
-            type="text"
-            value={nome}
-            label="Nome"
-            name="nome"
-            placeholder="Digite seu nome"
-            onChange={handleNomeChange}
-          />
+
+          <div className='imagem'>
+            <img src="/images/logo-seidor.png" width={200} alt="logo" />
+            <p>Human Focused, Technology Experts</p>
+          </div>
+
+          <h1>Seus Dados:</h1>
+
+          <div className='nome-cel'>
+            <Input
+              type="text"
+              value={nome}
+              label="Nome *"
+              name="nome"
+              placeholder="Digite seu nome"
+              onChange={handleNomeChange}
+            />
+            <Input
+              type="text"
+              value={celular}
+              label="Celular *"
+              name="celular"
+              placeholder="Digite seu celular"
+              onChange={handleCelularChange}
+            />
+          </div>
 
           <Input
-            type="text"
-            value={celular}
-            label="Celular"
-            name="celular"
-            placeholder="(00) 00000-0000"
-            onChange={handleCelularChange}
-          />
+              type="text"
+              value={email}
+              label="Email *"
+              name="email"
+              placeholder="Digite seu e-mail"
+              onChange={handleEmailChange}
+              isInvalid={!emailValido} // Adiciona a propriedade "isInvalid" para alterar o estilo do campo se o e-mail for inválido
+            />
+          
+          <h2>Sobre o Funcionário:</h2>
 
-          <Input
-            type="text"
-            value={email}
-            label="Email"
-            name="email"
-            placeholder="Digite seu e-mail"
-            onChange={handleEmailChange}
-            isInvalid={!emailValido} // Adiciona a propriedade "isInvalid" para alterar o estilo do campo se o e-mail for inválido
-          />
+          <div className='cols'>
+            <div className='left-col'>
+              <ListaSuspensa
+                  label='País * '
+                  options={[
+                    { label: 'Brasil', value: 'Brasil' },
+                    { label: 'Estados Unidos', value: 'EstadosUnidos' },
+                    { label: 'Canadá', value: 'Canadá' }
+                  ]}
+                  value={paisSelecionado}
+                  onChange={handlePaisChange}
+              />
+              {estados.length > 0 && (
+                <ListaSuspensa
+                  label='Estado * '
+                  options={estados.map((estado) => ({ label: estado, value: estado }))}
+                  value={estadoSelecionado}
+                  onChange={handleEstadoChange}
+                />
+              )}
+            </div>
 
-          <ListaSuspensa
-            options={[
-              { label: 'Brasil', value: 'Brasil' },
-              { label: 'Estados Unidos', value: 'EstadosUnidos' },
-              { label: 'Canadá', value: 'Canadá' }
-            ]}
-            value={paisSelecionado}
-            onChange={handlePaisChange}
-          />
+            <div className='right-col'>
+              <ListaSuspensa
+                label='Departamento *'
+                options={departamentos.map((departamento) => ({ label: departamento, value: departamento }))}
+                value={departamentoSelecionado}
+                onChange={handleDepartamentoChange}
+              />
+              {funcionarios.length > 0 && (
+                <ListaSuspensa
+                  label='Funcionário * '
+                  options={funcionarios.map((funcionario) => ({ label: funcionario, value: funcionario }))}
+                  value={funcionarioSelecionado}
+                  onChange={handleFuncionarioChange}
+                />
+              )}
+            </div>
+          </div>
+          
 
-          <ListaSuspensa
-            options={estados.map((estado) => ({ label: estado, value: estado }))}
-            value={estadoSelecionado}
-            onChange={handleEstadoChange}
-          />
-
-          <ListaSuspensa
-            options={departamentos.map((departamento) => ({ label: departamento, value: departamento }))}
-            value={departamentoSelecionado}
-            onChange={handleDepartamentoChange}
-          />
-          <ListaSuspensa
-            options={funcionarios.map((funcionario) => ({ label: funcionario, value: funcionario }))}
-            value={funcionarioSelecionado}
-            onChange={handleFuncionarioChange}
-          />
-
-          <Input
+          <TextArea
+            id="feedback"
             type="text"
             value={feedback}
-            label="Feedback"
+            label="Feedback *"
             name="feedback"
             placeholder="Digite seu feedback"
             onChange={handleFeedbackChange}
@@ -215,8 +249,10 @@ const Formulario = () => {
         </form>
       )}
 
-      <ListaFeedback feedbacks={feedbacks} />
-    </div>
+      <section className='cardsFeedback'>
+        <ListaFeedback feedbacks={feedbacks} />
+      </section>
+    </Fragment>
   );
 };
 

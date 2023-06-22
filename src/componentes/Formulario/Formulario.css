@@ -1,24 +1,69 @@
-.formulario{
+form { /*campo do formulário*/
+  background: linear-gradient(90deg, #4b6bb738, #18284860);
   display: flex;
   flex-direction: column;
-  margin: 5rem 12rem;
-  border: 1px solid red;
-}
-
-form {
-  border: 1px solid yellow;
-  background-color: #222;
+  box-shadow: 0 0 15px #4b4b4b33;
   color: #fff;
   padding: 3rem;
   margin: 1rem;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 
-form button {
+form .imagem{ /*campo do logo do formulario*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 12vh;
+}
+form .imagem p{ /*texto do logo do formulario*/
+  font-size: 0.55rem;
+  color: rgba(240, 255, 255, 0.726);
+}
+
+
+
+form h1{ /*Titulo Dados*/
+  text-align: start;
+  font-size: 1.2rem;
+  font-family: 'Roboto', sans-serif;
+  color: #5f9ea0;
+}
+
+form .nome-cel{ /*campo do nome e celular*/
+  display: flex;
+  gap: 8px;
+}
+
+
+
+
+form h2{ /*Título Funcionario*/
+  margin-top: 3.5rem;
+  text-align: start;
+  font-size: 1.2rem;
+  font-family: 'Roboto', sans-serif;
+  color: #5f9ea0;
+}
+form .cols{ /*campo dos Selects*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+form .cols .left-col,
+form .cols .right-col{ /*campo das colunas dos Selects*/
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+}
+
+
+
+form button { /*botão de enviar*/
   background-color: transparent;
   border: 1px solid #fff;
   color: #fff;
   outline: none;
+  margin: 24px 0 0 0;
   font-size: 1.2rem;
   font-weight: 700;
   padding: 10px 20px;
@@ -26,10 +71,20 @@ form button {
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 }
-
-form button:hover {
-  background-color: #ffffff46;
-  transform: scale(1.02);
-  letter-spacing: 2px;
+form button:hover { /*botão de enviar quando passa o mouse*/
+  background-color: #001644;
+  transform: scale(1.01);
   transition: all 0.3s ease-in-out;
+}
+
+
+
+
+@media (max-width: 768px){  /*media query para telas menores*/
+  .nome-cel{
+    flex-direction: column;
+  }
+  form {
+    padding: 1.8rem;
+  }
 }
