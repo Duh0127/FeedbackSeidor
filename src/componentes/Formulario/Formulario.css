@@ -1,4 +1,3 @@
-/* Formulario.css */
 .formulario{
   display: flex;
   flex-direction: column;
@@ -20,7 +19,6 @@ form button {
   border: 1px solid #fff;
   color: #fff;
   outline: none;
-  width: 30%;
   font-size: 1.2rem;
   font-weight: 700;
   padding: 10px 20px;
