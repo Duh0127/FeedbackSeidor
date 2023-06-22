@@ -4,16 +4,21 @@ import './Input.css';
 const Input = ({ type, value, label, name, placeholder, onChange }) => {
   const applyDateMask = (value) => {
     if (label === 'Data') {
-      let formattedValue = value
-        .replace(/\D/g, '') // Remove caracteres não numéricos
-        .replace(/^(\d{2})(\d)/g, '$1/$2') // Adiciona a barra após os 2 primeiros dígitos
-        .replace(/(\d{2})(\d)/, '$1/$2'); // Adiciona a barra após os próximos 2 dígitos
-
-      if (formattedValue.length > 10) {
-        formattedValue = formattedValue.substr(0, 10); // Limita o valor a 10 caracteres
-      }
+      const currentDate = new Date();
+      const day = String(currentDate.getDate()).padStart(2, '0');
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+      const year = currentDate.getFullYear();
+      const hours = String(currentDate.getHours()).padStart(2, '0');
+      const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+      const formattedValue = `${day}/${month}/${year} ${hours}:${minutes}`;
       return formattedValue;
     }
+    if (label === 'Celular') {
+      const maskedValue = value.replace(/\D/g, ''); // Remove caracteres não numéricos
+      const formattedValue = `(${maskedValue.slice(0, 2)}) ${maskedValue.slice(2, 7)}-${maskedValue.slice(7, 11)}`;
+      return formattedValue;
+    }
+
     return value;
   };
 
@@ -27,11 +32,12 @@ const Input = ({ type, value, label, name, placeholder, onChange }) => {
       <label htmlFor={name}>{label}</label>
       <input
         type={type}
-        value={value}
+        value={applyDateMask(value)}
         id={name}
         name={name}
         placeholder={placeholder}
         onChange={handleChange}
+        readOnly={label === 'Data'} // Impede a edição do campo se o label for 'Data'
       />
     </div>
   );
