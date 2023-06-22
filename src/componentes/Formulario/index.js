@@ -22,7 +22,7 @@ const Formulario = () => {
 
 
 
-/* HANDLES *//* HANDLES *//* HANDLES */
+  /* HANDLES *//* HANDLES *//* HANDLES */
   const handleNomeChange = (value) => {
     setNome(value); //atribui o novo valor ao nome
   };
@@ -60,8 +60,7 @@ const Formulario = () => {
 
   /* VARIAVEL PARA SUBMIT DO FORMULARIO */
   const handleFormSubmit = (event) => {
-    event.preventDefault(); // Impede o envio padrão do formulário
-
+    
     // Verificar se todos os campos obrigatórios foram preenchidos
     if (nome.trim() === '' || feedback.trim() === '') {
       alert('Por favor, preencha todos os campos obrigatórios.');
@@ -92,7 +91,14 @@ const Formulario = () => {
       funcionario: funcionarioSelecionado,
       feedback,
     };
-    setFeedbacks([...feedbacks, novoFeedback]); // Adiciona o novo feedback no fim da lista de feedbacks
+    // Salvar o objeto no localStorage
+    const feedbacksFromStorage = JSON.parse(localStorage.getItem('feedbacks')) || [];
+    const updatedFeedbacks = [...feedbacksFromStorage, novoFeedback];
+    localStorage.setItem('feedbacks', JSON.stringify(updatedFeedbacks));
+
+    // Atualizar o estado local com os novos feedbacks
+    setFeedbacks(updatedFeedbacks);
+
 
     // Limpar os campos do formulário
     setNome('');
@@ -151,38 +157,38 @@ const Formulario = () => {
       {enviado ? (
         <p>Obrigado pelo seu feedback!</p>
       )
-      : 
-      ( // Se o formulário não foi enviado, exibir o formulário
+        :
+        ( // Se o formulário não foi enviado, exibir o formulário
 
-        <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleFormSubmit}>
 
-          <div className='imagem'>
-            <img src="/images/logo-seidor.png" width={200} alt="logo" />
-            <p>Human Focused, Technology Experts</p>
-          </div>
+            <div className='imagem'>
+              <img src="/images/logos_fundoescuro.png" width={200} alt="logo" />
+              <p>Human Focused, Technology Experts</p>
+            </div>
 
-          <h1>Seus Dados:</h1>
+            <h1>Seus Dados:</h1>
 
-          <div className='nome-cel'>
+            <div className='nome-cel'>
+              <Input
+                type="text"
+                value={nome}
+                label="Nome *"
+                name="nome"
+                placeholder="Digite seu nome"
+                onChange={handleNomeChange}
+              />
+              <Input
+                type="text"
+                value={celular}
+                label="Celular *"
+                name="celular"
+                placeholder="Digite seu celular"
+                onChange={handleCelularChange}
+              />
+            </div>
+
             <Input
-              type="text"
-              value={nome}
-              label="Nome *"
-              name="nome"
-              placeholder="Digite seu nome"
-              onChange={handleNomeChange}
-            />
-            <Input
-              type="text"
-              value={celular}
-              label="Celular *"
-              name="celular"
-              placeholder="Digite seu celular"
-              onChange={handleCelularChange}
-            />
-          </div>
-
-          <Input
               type="text"
               value={email}
               label="Email *"
@@ -191,12 +197,12 @@ const Formulario = () => {
               onChange={handleEmailChange}
               isInvalid={!emailValido} // Adiciona a propriedade "isInvalid" para alterar o estilo do campo se o e-mail for inválido
             />
-          
-          <h2>Sobre o Funcionário:</h2>
 
-          <div className='cols'>
-            <div className='left-col'>
-              <ListaSuspensa
+            <h2>Sobre o Funcionário:</h2>
+
+            <div className='cols'>
+              <div className='left-col'>
+                <ListaSuspensa
                   label='País * '
                   options={[
                     { label: 'Brasil', value: 'Brasil' },
@@ -205,49 +211,49 @@ const Formulario = () => {
                   ]}
                   value={paisSelecionado}
                   onChange={handlePaisChange}
-              />
-              {estados.length > 0 && (
-                <ListaSuspensa
-                  label='Estado * '
-                  options={estados.map((estado) => ({ label: estado, value: estado }))}
-                  value={estadoSelecionado}
-                  onChange={handleEstadoChange}
                 />
-              )}
+                {estados.length > 0 && (
+                  <ListaSuspensa
+                    label='Estado * '
+                    options={estados.map((estado) => ({ label: estado, value: estado }))}
+                    value={estadoSelecionado}
+                    onChange={handleEstadoChange}
+                  />
+                )}
+              </div>
+
+              <div className='right-col'>
+                <ListaSuspensa
+                  label='Departamento *'
+                  options={departamentos.map((departamento) => ({ label: departamento, value: departamento }))}
+                  value={departamentoSelecionado}
+                  onChange={handleDepartamentoChange}
+                />
+                {funcionarios.length > 0 && (
+                  <ListaSuspensa
+                    label='Funcionário * '
+                    options={funcionarios.map((funcionario) => ({ label: funcionario, value: funcionario }))}
+                    value={funcionarioSelecionado}
+                    onChange={handleFuncionarioChange}
+                  />
+                )}
+              </div>
             </div>
 
-            <div className='right-col'>
-              <ListaSuspensa
-                label='Departamento *'
-                options={departamentos.map((departamento) => ({ label: departamento, value: departamento }))}
-                value={departamentoSelecionado}
-                onChange={handleDepartamentoChange}
-              />
-              {funcionarios.length > 0 && (
-                <ListaSuspensa
-                  label='Funcionário * '
-                  options={funcionarios.map((funcionario) => ({ label: funcionario, value: funcionario }))}
-                  value={funcionarioSelecionado}
-                  onChange={handleFuncionarioChange}
-                />
-              )}
-            </div>
-          </div>
-          
 
-          <TextArea
-            id="feedback"
-            type="text"
-            value={feedback}
-            label="Feedback *"
-            name="feedback"
-            placeholder="Digite seu feedback"
-            onChange={handleFeedbackChange}
-          />
+            <TextArea
+              id="feedback"
+              type="text"
+              value={feedback}
+              label="Feedback *"
+              name="feedback"
+              placeholder="Digite seu feedback"
+              onChange={handleFeedbackChange}
+            />
 
-          <button type="submit">Adicionar Feedback</button>
-        </form>
-      )}
+            <button type="submit">Adicionar Feedback</button>
+          </form>
+        )}
 
       <section className='cardsFeedback'>
         <ListaFeedback feedbacks={feedbacks} />

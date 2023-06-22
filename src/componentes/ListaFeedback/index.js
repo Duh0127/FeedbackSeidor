@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ListaFeedback.css';
 
-const ListaFeedback = ({ feedbacks }) => {
+const ListaFeedback = () => {
   const [filtro, setFiltro] = useState('');
-  const [avaliacoes, setAvaliacoes] = useState({});
+  const [feedbacks, setFeedbacks] = useState([]);
 
+  useEffect(() => {
+    const feedbacksFromStorage = JSON.parse(localStorage.getItem('feedbacks')) || [];
+    setFeedbacks(feedbacksFromStorage);
+  }, []);
 
-  /* HANDLES *//* HANDLES *//* HANDLES */
+  /* HANDLES */
   const handleFiltroChange = (event) => {
     setFiltro(event.target.value);
   };
 
   const handleAvaliacaoClick = (feedbackIndex, starIndex) => {
-    setAvaliacoes((prevAvaliacoes) => ({
-      ...prevAvaliacoes,
-      [feedbackIndex]: starIndex,
-    }));
+    const updatedFeedbacks = [...feedbacks];
+    updatedFeedbacks[feedbackIndex].avaliacao = starIndex;
+    setFeedbacks(updatedFeedbacks);
+    localStorage.setItem('feedbacks', JSON.stringify(updatedFeedbacks));
   };
 
-
-
-  if (!Array.isArray(feedbacks)) { // Se o array for falso (vazio), retorna um aviso
+  if (!Array.isArray(feedbacks)) {
     return <p>Nenhum feedback disponível.</p>;
   }
 
-
-
-  const filteredFeedbacks = feedbacks.filter((feedback) => { // Filtra os feedbacks por nome, departamento, país, estado, celular, email, feedback e funcionário
+  const filteredFeedbacks = feedbacks.filter((feedback) => {
     const filtroLowerCase = filtro.toLowerCase();
     return (
       feedback.nome.toLowerCase().includes(filtroLowerCase) ||
@@ -40,18 +40,13 @@ const ListaFeedback = ({ feedbacks }) => {
     );
   });
 
-
-
-  /* LISTA FEEDBACK */
   return (
     <div className='card_feedback'>
-
       <nav>
         <h2 className='titulo'>Lista de Feedbacks</h2>
         <input type="text" placeholder="Filtrar" value={filtro} onChange={handleFiltroChange} />
       </nav>
-
-      {filteredFeedbacks.length === 0 ? ( // Se o filtro retornar vazio, retorna um aviso
+      {filteredFeedbacks.length === 0 ? (
         <p className='aviso'>Feedback não encontrado.</p>
       ) : (
         <ul>
@@ -59,27 +54,24 @@ const ListaFeedback = ({ feedbacks }) => {
             <li key={feedbackIndex}>
               <h3 className='nome'>{feedback.nome}</h3>
               <p className='data'>
-                Data: {feedback.data.dia}/{feedback.data.mes}/{feedback.data.ano}, 
-                      {feedback.data.hora}h:{feedback.data.minuto}min
+                Data: {feedback.data.dia}/{feedback.data.mes}/{feedback.data.ano}, {feedback.data.hora}h:{feedback.data.minuto}min
               </p>
               <p className='celular'>Celular: {feedback.celular}</p>
               <p className='email'>Email: {feedback.email}</p>
-              <p className='funcionario'>Funcionário: {feedback.funcionario}</p> {/* Adiciona o nome do funcionário selecionado */}
+              <p className='funcionario'>Funcionário: {feedback.funcionario}</p>
               <p className='departamento'>Departamento: {feedback.departamento}</p>
               <p className='pais'>País: {feedback.pais}</p>
               <p className='estado'>Estado: {feedback.estado}</p>
               <p className='feedback'>Feedback: {feedback.feedback}</p>
-              
-
-              <div className='campo-avaliacao'> {/* Adiciona o campo de avaliação */}
+              <div className='campo-avaliacao'>
                 <p>
-                  Avaliar:{' '}
-                  {[1, 2, 3, 4, 5].map((starIndex) => ( // Adiciona as estrelas de avaliação
+                  Avaliar: {' '}
+                  {[1, 2, 3, 4, 5].map((starIndex) => (
                     <span
-                      key={starIndex} // Chave para cada estrela
-                      onClick={() => handleAvaliacaoClick(feedbackIndex, starIndex)} // Ao clicar na estrela, chama a função handleAvaliacaoClick
+                      key={starIndex}
+                      onClick={() => handleAvaliacaoClick(feedbackIndex, starIndex)}
                       style={{
-                        color: starIndex <= (avaliacoes[feedbackIndex] || 0) ? 'blue' : 'gray',
+                        color: starIndex <= (feedback.avaliacao || 0) ? 'blue' : 'gray',
                         cursor: 'pointer',
                       }}
                     >
