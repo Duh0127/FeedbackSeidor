@@ -1,21 +1,37 @@
-/* App.css */
-body {
-    background-color: #222;
+body { /*corpo principal do site*/
+    background-image: url(/public/images/background-blue.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    backdrop-filter: blur(5px) brightness(0.5);
     color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+}
+  
+.App{ /*corpo que comporta nossa aplicação*/
+    margin-top: 4rem;
+    width: 55vw;
+}
+
+
+@media (max-width: 1300px){ /*Configuração para telas menores que 1300px*/
+    .App{
+      width: 70vw;
+    }
   }
-  
-.container {
-    max-width: 600px;
-    padding: 20px;
-    border-radius: 5px;
+
+@media (max-width: 1300px){ /*Configuração para telas menores que 1300px*/
+    .App{
+      width: 80vw;
+    }
 }
-  
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
+
+@media (max-width: 768px){ /*Configuração para telas menores que 768px*/
+    .App{
+      width: 97vw;
+    }
 }
-  

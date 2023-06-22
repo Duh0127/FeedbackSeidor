@@ -1,0 +1,26 @@
+.textarea-container{ /*campo envolta do textarea*/
+    display: flex;
+    flex-direction: column;
+}
+
+.textarea-container label{ /*label do textarea*/
+    font-size: 1rem;
+    margin: 1rem 0 0.5rem 0;
+}
+
+.textarea-container textarea{ /*config do TextArea*/
+    color: #fff;
+    background-color: transparent;
+    border-radius: 5px;
+    border: 1px solid #ffffff36;
+    padding: 0.5rem;
+    font-size: 1rem;
+    min-height: 10vh;
+    resize:vertical;
+}
+
+.textarea-container textarea::placeholder{ /*placeholder do TextArea*/
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #A6A9B5;
+}

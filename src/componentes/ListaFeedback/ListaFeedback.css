@@ -1,48 +1,108 @@
-/* ListaFeedback.css */
 
-.ListaFeedback{
+.card_feedback{ /*Campo geral do card feedback*/
+  background: linear-gradient(90deg, #4b6bb738, #18284860);
   display: flex;
   flex-direction: column;
-  margin: 5rem 0;
+  border-radius: 10px;
+  margin: 2rem 1rem;
 }
 
-input{
-  background-color: #222;
-  color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-
-.lista-feedback-container {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  border-radius: 5px;
+.card_feedback nav{ /*Campo do filtro e título*/
   display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 10vh;
+}
+
+.card_feedback nav .titulo{ /*Título do campo cards*/
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+}
+
+.card_feedback nav .titulo::after{ /*Linha abaixo do título*/
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+}
+
+.card_feedback nav input{ /*Campo do filtro*/
+  background-color: transparent;
+  border: 1px solid #ffffff36;
+  outline: none;
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 15px;
+  border-radius: 6px;
+}
+.card_feedback nav input::placeholder{ /*placeholder do filtro*/
+  color: #9297b9;
+}
+
+.card_feedback .aviso{ /*Campo Aviso quando não tiver cards*/
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+
+
+.card_feedback ul{ /*Campo Lista Cards*/
+  display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  gap: 1rem;
+  list-style: none;
+  margin: 1rem;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.card_feedback ul li{ /*Campo do Card Feedback*/
+  background-color: rgb(30, 30, 97);
+  padding: 1rem 1.5rem;
+  width: 300px;
+}
+
+.card_feedback ul li .nome{ /*Campo Nome*/
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+}
+
+.card_feedback ul li .data, /*Campo Data*/
+.card_feedback ul li .departamento, /*Campo Departamento*/
+.card_feedback ul li .pais, /*Campo País*/
+.card_feedback ul li .estado, /*Campo Estado*/
+.card_feedback ul li .celular, /*Campo Celular*/ 
+.card_feedback ul li .email, /*Campo Email*/
+.card_feedback ul li .feedback { /*Campo Feedback*/ 
+  font-size: 1.1rem;
+  word-wrap: break-word;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+}
+
+.card_feedback ul li .funcionario{ /*config das infos Funcionário no card*/
+  font-size: 1.1rem;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+  margin-top: 2.5rem;
+}
+
+.card_feedback ul li .campo-avaliacao{ /*config das infos Avaliação no card*/
+  margin-top: 2.5rem;
 }
 
 
-.card {
-  background-color: #222;
-  color: #fff;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 5px;
-  width: 250px;
-  min-height: 290px;
-}
-.card h3 {
-  margin-bottom: 10px;
-}
-.card p {
-  margin-bottom: 5px;
-}
-.card .avaliacao {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+@media (max-width: 1300px){ /*Configuração para telas menores que 1300px*/
+  .card_feedback nav{
+    flex-direction: column;
+    height: 15vh;
+  }
+
 }
