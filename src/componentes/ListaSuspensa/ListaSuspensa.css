@@ -1,28 +1,27 @@
 /* ListaSuspensa.css */
-.lista-suspensa-container {
-  background-color: #222;
-  color: #fff;
+.listaSuspensa{
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
-  margin-bottom: 20px;
+  width: 100%;
 }
 
-.lista-suspensa-container select {
-  background-color: #333;
+.listaSuspensa select { /*Campo Select das opções*/
+  background-color: #11173A;
   color: #fff;
-  border: none;
+  border: 1px solid #ffffff36;
   outline: none;
   font-size: 1.1rem;
   padding: 10px;
-  margin-bottom: 10px;
   border-radius: 5px;
+  margin-bottom: 10px;
+  transition: all .5s ease-in-out;
+  cursor: pointer;
 }
-.lista-suspensa-container option{
-  font-size: 1.2rem;
+.listaSuspensa select:hover{ /*Campo Select das opções quando passa o mouse*/
+  background-color: #001136;
 }
 
-.lista-suspensa-container label {
+.lista-suspensa-container label { /*label do Select*/
   display: block;
   margin-bottom: 5px;
   font-size: 1.5rem;
