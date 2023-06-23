@@ -13,7 +13,7 @@ form .imagem{ /*campo do logo do formulario*/
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 12vh;
+  height: 150px;
 }
 form .imagem p{ /*texto do logo do formulario*/
   font-size: 0.55rem;
